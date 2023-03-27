@@ -27,7 +27,14 @@ func (rb *RingBuffer[T]) Get(i int) T {
 	return rb.buffer[absoluteNdx]
 }
 
-func (rb *RingBuffer[T]) Add(value T) {
+func (rb *RingBuffer[T]) Add(values ...T) {
+	var v T
+	for v = range values {
+		rb.add(v)
+	}
+}
+
+func (rb *RingBuffer[T]) add(value T) {
 	if rb.length == rb.capacity {
 		rb.buffer[rb.first] = value
 		rb.first++
